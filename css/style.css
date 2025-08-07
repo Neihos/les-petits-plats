@@ -1,0 +1,22 @@
+header {
+  background-image: url(../assets/img/background-header.webp);
+  height: 667px;
+  background-position: 0% 70%;
+  background-size: cover;
+  box-shadow: inset 100vw 0px rgba(0, 0, 0, 0.3);
+}
+
+.header-index_logo-header {
+  position: absolute;
+  top: 51px;
+  left: 69px;
+}
+.header-index_search-container {
+  width: 954px;
+}
+.header-index_search-container h1 {
+  color: rgb(255, 209, 91);
+  width: 750px;
+  text-align: center;
+  margin: auto;
+}
