@@ -1,0 +1,42 @@
+header {
+  background-image: url(../assets/img/background-header.webp);
+  height: 667px;
+  background-position: 0% 70%;
+  background-size: cover;
+  box-shadow: inset 100vw 0px rgba(0, 0, 0, 30%);
+  position: relative;
+}
+
+.header-index {
+  &_logo-header {
+    position: absolute;
+    top: 51px;
+    left: 69px;
+  }
+  &_search-container {
+    width: 954px;
+    h1 {
+      color: rgba(255, 209, 91, 1);
+      width: 630px;
+      line-height: 60px;
+      text-align: center;
+      margin: auto;
+      font-family: "Anton", sans-serif;
+    }
+    &_navbar {
+      form {
+        height: 72px;
+        gap: 10px;
+        .search-bar {
+            width: calc(100% - 64px);
+            input {
+                width: 100%;
+                &:focus {
+                    outline: none;
+                }
+            }            
+        }
+      }
+    }
+  }
+}

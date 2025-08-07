@@ -1,9 +1,22 @@
+html {
+  background-color: black;
+}
+
+body {
+  max-width: 1440px;
+}
+
+main {
+  background-color: rgb(237, 237, 237);
+}
+
 header {
   background-image: url(../assets/img/background-header.webp);
   height: 667px;
   background-position: 0% 70%;
   background-size: cover;
   box-shadow: inset 100vw 0px rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
 .header-index_logo-header {
@@ -16,7 +29,22 @@ header {
 }
 .header-index_search-container h1 {
   color: rgb(255, 209, 91);
-  width: 750px;
+  width: 630px;
+  line-height: 60px;
   text-align: center;
   margin: auto;
+  font-family: "Anton", sans-serif;
+}
+.header-index_search-container_navbar form {
+  height: 72px;
+  gap: 10px;
+}
+.header-index_search-container_navbar form .search-bar {
+  width: calc(100% - 64px);
+}
+.header-index_search-container_navbar form .search-bar input {
+  width: 100%;
+}
+.header-index_search-container_navbar form .search-bar input:focus {
+  outline: none;
 }

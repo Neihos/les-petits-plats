@@ -1,24 +1,13 @@
-header {
-  background-image: url(../assets/img/background-header.webp);
-  height: 667px;
-  background-position: 0% 70%;
-  background-size: cover;
-  box-shadow: inset 100vw 0px rgba(0, 0, 0, 30%);
+html {
+    background-color: black;
 }
 
-.header-index {
-  &_logo-header {
-    position: absolute;
-    top: 51px;
-    left: 69px;
-  }
-  &_search-container {
-    width: 954px;
-    h1 {
-        color: rgba(255, 209, 91, 1);;
-        width: 750px;
-        text-align: center;
-        margin: auto;
-    }
-  }
+body {
+    max-width: 1440px;
 }
+
+main {
+    background-color: rgba(237, 237, 237, 1);
+}
+
+@import "header";
