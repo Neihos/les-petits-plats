@@ -1,13 +1,8 @@
-html {
-    background-color: black;
-}
+@use "base/base";
+@use "components/header";
 
-body {
-    max-width: 1440px;
+.filters-area {
+  &_NumberOfRecipes h3 {
+    font-family: "Anton", sans-serif;
+  }
 }
-
-main {
-    background-color: rgba(237, 237, 237, 1);
-}
-
-@import "header";

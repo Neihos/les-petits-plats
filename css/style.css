@@ -8,6 +8,8 @@ body {
 
 main {
   background-color: rgb(237, 237, 237);
+  padding: 0 100px;
+  width: 100%;
 }
 
 header {
@@ -41,10 +43,24 @@ header {
 }
 .header-index_search-container_navbar form .search-bar {
   width: calc(100% - 64px);
+  padding-left: 20px;
 }
 .header-index_search-container_navbar form .search-bar input {
   width: 100%;
+  color: rgb(122, 122, 122);
 }
 .header-index_search-container_navbar form .search-bar input:focus {
   outline: none;
+}
+.header-index_search-container_navbar form .btn {
+  border: none;
+}
+.header-index_search-container_navbar form .btn:hover {
+  background-color: rgb(255, 209, 91);
+  color: black;
+  border: none;
+}
+
+.filters-area_NumberOfRecipes h3 {
+  font-family: "Anton", sans-serif;
 }
