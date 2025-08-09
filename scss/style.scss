@@ -1,8 +1,3 @@
 @use "base/base";
 @use "components/header";
-
-.filters-area {
-  &_NumberOfRecipes h3 {
-    font-family: "Anton", sans-serif;
-  }
-}
+@use "components/recipe-card";

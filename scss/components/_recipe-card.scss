@@ -1,0 +1,51 @@
+.recipe-card {
+  width: 380px;
+}
+
+.card {
+  position: relative;
+  img {
+    height: 253px;
+    object-fit: cover;
+  }
+  .cooking-time {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 65px;
+    height: 26px;
+    background-color: rgba(255, 209, 91, 1);
+    font-family: "Manrope", sans-serif;
+    font-size: 12px;
+    color: black;
+  }
+  &_content {
+    height: 478px;
+    h2 {
+      font-size: 18px;
+    }
+    h3 {
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: rgba(122, 122, 122, 1);
+    }
+    .textDescription {
+      font-size: 14px;
+      display: -webkit-box;
+      line-clamp: 4;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .ingredients-list {
+      font-family: "Manrope", sans-serif;
+      .ingredient-name {
+        font-size: 14px;
+      }
+      .ingredient-dose {
+        font-size: 14px;
+        color: rgba(122, 122, 122, 1);
+      }
+    }
+  }
+}

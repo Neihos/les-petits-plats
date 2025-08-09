@@ -12,8 +12,16 @@ main {
   width: 100%;
 }
 
+h1, h2 {
+  font-family: "Anton", sans-serif;
+}
+
+H3, p {
+  font-family: "Manrope";
+}
+
 header {
-  background-image: url(../assets/img/background-header.webp);
+  background-image: url(../assets/images/common/background-header.webp);
   height: 667px;
   background-position: 0% 70%;
   background-size: cover;
@@ -35,7 +43,6 @@ header {
   line-height: 60px;
   text-align: center;
   margin: auto;
-  font-family: "Anton", sans-serif;
 }
 .header-index_search-container_navbar form {
   height: 72px;
@@ -61,6 +68,55 @@ header {
   border: none;
 }
 
-.filters-area_NumberOfRecipes h3 {
-  font-family: "Anton", sans-serif;
+.recipe-card {
+  width: 380px;
+}
+
+.card {
+  position: relative;
+}
+.card img {
+  height: 253px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.card .cooking-time {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 65px;
+  height: 26px;
+  background-color: rgb(255, 209, 91);
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  color: black;
+}
+.card_content {
+  height: 478px;
+}
+.card_content h2 {
+  font-size: 18px;
+}
+.card_content h3 {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: rgb(122, 122, 122);
+}
+.card_content .textDescription {
+  font-size: 14px;
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card_content .ingredients-list {
+  font-family: "Manrope", sans-serif;
+}
+.card_content .ingredients-list .ingredient-name {
+  font-size: 14px;
+}
+.card_content .ingredients-list .ingredient-dose {
+  font-size: 14px;
+  color: rgb(122, 122, 122);
 }

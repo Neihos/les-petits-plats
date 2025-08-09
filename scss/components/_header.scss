@@ -1,5 +1,5 @@
 header {
-  background-image: url(../assets/img/background-header.webp);
+  background-image: url(../assets/images/common/background-header.webp);
   height: 667px;
   background-position: 0% 70%;
   background-size: cover;
@@ -21,7 +21,6 @@ header {
       line-height: 60px;
       text-align: center;
       margin: auto;
-      font-family: "Anton", sans-serif;
     }
     &_navbar {
       form {
@@ -32,7 +31,7 @@ header {
           padding-left: 20px;
           input {
             width: 100%;
-            color: rgba(122, 122, 122,1);
+            color: rgba(122, 122, 122, 1);
             &:focus {
               outline: none;
             }

@@ -1,14 +1,21 @@
 html {
-    background-color: black;
+  background-color: black;
 }
 
 body {
-    max-width: 1440px;
+  max-width: 1440px;
 }
 
 main {
-    background-color: rgba(237, 237, 237, 1);
-    padding: 0 100px;
-    width: 100%;
+  background-color: rgba(237, 237, 237, 1);
+  padding: 0 100px;
+  width: 100%;
 }
 
+h1, h2 {
+  font-family: "Anton", sans-serif;
+}
+
+H3, p {
+    font-family: "Manrope";
+}
