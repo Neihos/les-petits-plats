@@ -1,5 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { createRecipesCard } from "./components/recipe-card.js";
+import { sendFilters } from "./components/filters.js";
 
 function displayRecipesCards() {
   const cardContainer = document.querySelector(".cards_container");
@@ -8,4 +9,10 @@ function displayRecipesCards() {
     cardContainer.appendChild(createRecipesCard(recipe));
   });
 }
-displayRecipesCards();
+
+function init() {
+  displayRecipesCards();
+  sendFilters();
+}
+
+init();

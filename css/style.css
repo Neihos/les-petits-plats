@@ -82,8 +82,8 @@ header {
 }
 .card .cooking-time {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
   width: 65px;
   height: 26px;
   background-color: rgb(255, 209, 91);
@@ -118,5 +118,56 @@ header {
 }
 .card_content .ingredients-list .ingredient-dose {
   font-size: 14px;
+  color: rgb(122, 122, 122);
+}
+
+.btn-ingredients .btn.dropdown-toggle,
+.btn-ustensils .btn.dropdown-toggle,
+.btn-appliances .btn.dropdown-toggle {
+  background: rgb(255, 255, 255);
+}
+.btn-ingredients .btn.dropdown-toggle:hover, .btn-ingredients .btn.dropdown-toggle:focus, .btn-ingredients .btn.dropdown-toggle:active, .btn-ingredients .btn.dropdown-toggle.show, .btn-ingredients .btn.dropdown-toggle[aria-expanded=true],
+.btn-ustensils .btn.dropdown-toggle:hover,
+.btn-ustensils .btn.dropdown-toggle:focus,
+.btn-ustensils .btn.dropdown-toggle:active,
+.btn-ustensils .btn.dropdown-toggle.show,
+.btn-ustensils .btn.dropdown-toggle[aria-expanded=true],
+.btn-appliances .btn.dropdown-toggle:hover,
+.btn-appliances .btn.dropdown-toggle:focus,
+.btn-appliances .btn.dropdown-toggle:active,
+.btn-appliances .btn.dropdown-toggle.show,
+.btn-appliances .btn.dropdown-toggle[aria-expanded=true] {
+  background: rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
+  box-shadow: none;
+}
+
+.dropdown-menu.show {
+  width: 100%;
+  max-height: 315px;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  transform: translate(0px, 50px) !important;
+}
+.dropdown-menu.show:hover, .dropdown-menu.show:focus, .dropdown-menu.show:active, .dropdown-menu.show.show, .dropdown-menu.show[aria-expanded=true] {
+  background: rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
+  box-shadow: none;
+}
+
+.filterSearchBarInput.form-control {
+  position: relative;
+  border-radius: 1px;
+}
+.filterSearchBarInput.form-control:focus {
+  border-color: transparent;
+}
+
+.filterSearchBarIcone {
+  position: absolute;
+  font-size: 14px;
+  top: 15px;
+  right: 25px;
   color: rgb(122, 122, 122);
 }
