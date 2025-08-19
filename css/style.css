@@ -121,22 +121,22 @@ header {
   color: rgb(122, 122, 122);
 }
 
-.btn-ingredients .btn.dropdown-toggle,
-.btn-ustensils .btn.dropdown-toggle,
-.btn-appliances .btn.dropdown-toggle {
+#btn-ingredients .btn.dropdown-toggle,
+#btn-ustensils .btn.dropdown-toggle,
+#btn-appliances .btn.dropdown-toggle {
   background: rgb(255, 255, 255);
 }
-.btn-ingredients .btn.dropdown-toggle:hover, .btn-ingredients .btn.dropdown-toggle:focus, .btn-ingredients .btn.dropdown-toggle:active, .btn-ingredients .btn.dropdown-toggle.show, .btn-ingredients .btn.dropdown-toggle[aria-expanded=true],
-.btn-ustensils .btn.dropdown-toggle:hover,
-.btn-ustensils .btn.dropdown-toggle:focus,
-.btn-ustensils .btn.dropdown-toggle:active,
-.btn-ustensils .btn.dropdown-toggle.show,
-.btn-ustensils .btn.dropdown-toggle[aria-expanded=true],
-.btn-appliances .btn.dropdown-toggle:hover,
-.btn-appliances .btn.dropdown-toggle:focus,
-.btn-appliances .btn.dropdown-toggle:active,
-.btn-appliances .btn.dropdown-toggle.show,
-.btn-appliances .btn.dropdown-toggle[aria-expanded=true] {
+#btn-ingredients .btn.dropdown-toggle:hover, #btn-ingredients .btn.dropdown-toggle:focus, #btn-ingredients .btn.dropdown-toggle:active, #btn-ingredients .btn.dropdown-toggle.show, #btn-ingredients .btn.dropdown-toggle[aria-expanded=true],
+#btn-ustensils .btn.dropdown-toggle:hover,
+#btn-ustensils .btn.dropdown-toggle:focus,
+#btn-ustensils .btn.dropdown-toggle:active,
+#btn-ustensils .btn.dropdown-toggle.show,
+#btn-ustensils .btn.dropdown-toggle[aria-expanded=true],
+#btn-appliances .btn.dropdown-toggle:hover,
+#btn-appliances .btn.dropdown-toggle:focus,
+#btn-appliances .btn.dropdown-toggle:active,
+#btn-appliances .btn.dropdown-toggle.show,
+#btn-appliances .btn.dropdown-toggle[aria-expanded=true] {
   background: rgb(255, 255, 255);
   border-color: rgb(255, 255, 255);
   box-shadow: none;

@@ -80,7 +80,7 @@ export function createRecipesCard(recipe) {
       : "-";
     ingredientDose.classList.add("ingredient-dose");
 
-    ingredientsContainer.appendChild(ingredientContent);
+    ingredientsContainer.append(ingredientContent);
     ingredientContent.append(ingredientName, ingredientDose);
   });
 

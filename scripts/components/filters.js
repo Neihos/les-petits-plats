@@ -1,7 +1,8 @@
 import { recipes } from "../../data/recipes.js";
+import { createRecipesCard } from "./recipe-card.js";
 
-export function sendFilters() {
-  // Get a unique list of ingredients
+export function getFilters() {
+  // Get a unique list of ingredients, ustensils and appliances
   const ingredients = [
     ...new Set(
       recipes.flatMap((recipe) =>
@@ -10,7 +11,6 @@ export function sendFilters() {
     ),
   ];
 
-  // Get a unique list of utensils
   const ustensils = [
     ...new Set(
       recipes.flatMap((recipe) =>
@@ -19,34 +19,110 @@ export function sendFilters() {
     ),
   ];
 
-  // Get a unique list of appliances
   const appliance = [
     ...new Set(recipes.map((recipe) => recipe.appliance.toLocaleLowerCase())),
   ];
 
   // Select HTML elements where filters will be inserted
-  const ingredientsFilter = document.querySelector(".btn-ingredients");
-  const ustensilsFilter = document.querySelector(".btn-ustensils");
-  const applianceFilter = document.querySelector(".btn-appliances");
+  const ingredientsFilter = document.querySelector("#btn-ingredients");
+  const ustensilsFilter = document.querySelector("#btn-ustensils");
+  const applianceFilter = document.querySelector("#btn-appliances");
+  const tagsContainer = document.querySelector("#tags-container");
 
+  // UI selector
+  const cardsContainer = document.querySelector(".cards_container");
+  const nbRecipes = document.querySelector(".nb-recipes");
 
+  // Render of recipes
+  const renderRecipes = (list) => {
+    cardsContainer.innerHTML = "";
+    list.forEach((recipe) => {
+      cardsContainer.append(createRecipesCard(recipe));
+    });
+    // Counter update
+    nbRecipes.textContent = `${list.length} ${
+      list.length > 1 ? "recettes" : "recette"
+    }`;
+  }
+
+  // Active tags
   const activeItemTags = {
     ingredients: [],
     ustensils: [],
     appliance: [],
   };
 
-  function applyFilters() {
-    console.log("Filtres actifs :", activeItemTags);
+  // Display the tags based on active filters
+  const displayTags = () => {
+    if (!tagsContainer) return;
+
+    tagsContainer.innerHTML = "";
+    const ListOfTags = document.createElement("ul");
+    ListOfTags.classList.add("tags-container_tags-list");
+    tagsContainer.append(ListOfTags);
+
+    // Function to add tags to the display
+    const addTag = (category, value) => {
+      const tags = document.createElement("li");
+      tags.classList.add("tags");
+      tags.textContent = value;
+
+      const cross = document.createElement("i");
+      cross.classList.add("removeTags", "bi", "bi-x");
+      cross.style.cursor = "pointer";
+      cross.addEventListener("click", () => {
+        const tagsList = activeItemTags[category];
+        const i = tagsList.indexOf(value);
+        if (i !== -1) tagsList.splice(i, 1);
+        applyFilters();
+      });
+
+      tags.append(cross);
+      ListOfTags.append(tags);
+    };
+
+    activeItemTags.ingredients.forEach((v) => addTag("ingredients", v));
+    activeItemTags.ustensils.forEach((v) => addTag("ustensils", v));
+    activeItemTags.appliance.forEach((v) => addTag("appliance", v));
   }
 
-  /**
-   * Creates and inserts a dropdown filter menu into the target element
-   *
-   * @param {Array} newFilters - Array containing filter values
-   * @param {HTMLElement} destination - HTML element where the filter will be injected
-   */
-  function createFilter(newFilters, destination, category) {
+  const applyFilters = () => {
+    let filtered = recipes;
+
+    // Ingredients
+    if (activeItemTags.ingredients.length > 0) {
+      filtered = filtered.filter((recipe) => {
+        const ingList = recipe.ingredients.map((i) =>
+          i.ingredient.toLocaleLowerCase()
+        );
+        return activeItemTags.ingredients.every((tag) => ingList.includes(tag));
+      });
+    }
+
+    // Ustensils
+    if (activeItemTags.ustensils.length > 0) {
+      filtered = filtered.filter((recipe) => {
+        const ustList = recipe.ustensils.map((u) => u.toLocaleLowerCase());
+        return activeItemTags.ustensils.every((tag) => ustList.includes(tag));
+      });
+    }
+
+    // Appliances : string or array
+    if (activeItemTags.appliance.length > 0) {
+      filtered = filtered.filter((recipe) => {
+        const appList = Array.isArray(recipe.appliance)
+          ? recipe.appliance.map((a) => a.toLocaleLowerCase())
+          : [recipe.appliance.toLocaleLowerCase()];
+        return activeItemTags.appliance.every((tag) => appList.includes(tag));
+      });
+    }
+
+    renderRecipes(filtered);
+    displayTags();
+  }
+
+  
+  const createFilter = (newFilters, destination, category) => {
     // Create the <ul> container for the filter
     const filterContainer = document.createElement("ul");
     filterContainer.classList.add("dropdown-menu");
@@ -66,9 +142,10 @@ export function sendFilters() {
     filterIconeSearch.classList.add("filterSearchBarIcone", "bi", "bi-search");
 
     // Assemble the search bar inside the filter container
-    destination.appendChild(filterContainer);
-    filterContainer.appendChild(filterSearchBar);
+    destination.append(filterContainer);
     filterSearchBar.append(filterSearchBarInput, filterIconeSearch);
+    filterContainer.append(filterSearchBar);
+    
 
     // Create and append each filter item
     newFilters.forEach((item) => {
@@ -78,8 +155,8 @@ export function sendFilters() {
       filterLink.setAttribute("href", "#");
       filterLink.textContent = `${item}`;
 
-      filterContainer.appendChild(filter);
-      filter.appendChild(filterLink);
+      filterContainer.append(filter);
+      filter.append(filterLink);
     });
 
     // Listen for clicks on the filter container
@@ -88,15 +165,15 @@ export function sendFilters() {
       if (!link) return;
       e.preventDefault();
 
-      const value = link.textContent;
+      const value = link.textContent.toLocaleLowerCase();
       const tagsArray = activeItemTags[category];
 
-      // Add filter to the array if not present
       if (!tagsArray.includes(value)) {
         tagsArray.push(value);
-        // Remove filter from the array if already present
+        link.classList.add("is-active");
       } else {
         tagsArray.splice(tagsArray.indexOf(value), 1);
+        link.classList.remove("is-active");
       }
 
       applyFilters();
@@ -107,5 +184,4 @@ export function sendFilters() {
   createFilter(ingredients, ingredientsFilter, "ingredients");
   createFilter(ustensils, ustensilsFilter, "ustensils");
   createFilter(appliance, applianceFilter, "appliance");
-
 }
