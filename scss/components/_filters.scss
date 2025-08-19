@@ -33,6 +33,10 @@
   }
 }
 
+.dropdown-item {
+  font-size: 14px;
+}
+
 .filterSearchBarInput.form-control {
   position: relative;
   border-radius: 1px;
@@ -46,4 +50,27 @@
   top: 15px;
   right: 25px;
   color: rgba(122, 122, 122, 1);
+}
+
+#tags-container {
+  .tags-container_tags-list{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    gap: 20px;
+    list-style: none;
+    & .tags {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 203px;
+      height: 53px;
+      border-radius: 10px;
+      padding: 17px 18px;
+      background-color: rgba(255,209,91,1);
+      .removeTags {
+        font-size: 10px;
+      }
+    } 
+  }
 }

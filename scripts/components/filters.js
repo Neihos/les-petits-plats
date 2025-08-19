@@ -1,35 +1,30 @@
 import { recipes } from "../../data/recipes.js";
 import { createRecipesCard } from "./recipe-card.js";
+import { unique, normalize, capitalize } from "../helpers/text.js";
 
 export function getFilters() {
   // Get a unique list of ingredients, ustensils and appliances
-  const ingredients = [
-    ...new Set(
-      recipes.flatMap((recipe) =>
-        recipe.ingredients.map((ing) => ing.ingredient.toLocaleLowerCase())
-      )
-    ),
-  ];
+  const ingredients = unique(
+    recipes.flatMap((recipe) =>
+      recipe.ingredients.map((ing) => normalize(ing.ingredient))
+    )
+  );
 
-  const ustensils = [
-    ...new Set(
-      recipes.flatMap((recipe) =>
-        recipe.ustensils.map((u) => u.toLocaleLowerCase())
-      )
-    ),
-  ];
+  const ustensils = unique(
+    recipes.flatMap((recipe) =>
+      recipe.ustensils.map((u) => normalize(u))
+    )
+  );
 
-  const appliance = [
-    ...new Set(recipes.map((recipe) => recipe.appliance.toLocaleLowerCase())),
-  ];
+  const appliance = unique(
+    recipes.map((recipe) => normalize(recipe.appliance))
+  );
 
-  // Select HTML elements where filters will be inserted
+  // Select HTML elements
   const ingredientsFilter = document.querySelector("#btn-ingredients");
   const ustensilsFilter = document.querySelector("#btn-ustensils");
   const applianceFilter = document.querySelector("#btn-appliances");
   const tagsContainer = document.querySelector("#tags-container");
-
-  // UI selector
   const cardsContainer = document.querySelector(".cards_container");
   const nbRecipes = document.querySelector(".nb-recipes");
 
@@ -43,7 +38,7 @@ export function getFilters() {
     nbRecipes.textContent = `${list.length} ${
       list.length > 1 ? "recettes" : "recette"
     }`;
-  }
+  };
 
   // Active tags
   const activeItemTags = {
@@ -65,10 +60,10 @@ export function getFilters() {
     const addTag = (category, value) => {
       const tags = document.createElement("li");
       tags.classList.add("tags");
-      tags.textContent = value;
+      tags.textContent = capitalize(value);
 
       const cross = document.createElement("i");
-      cross.classList.add("removeTags", "bi", "bi-x");
+      cross.classList.add("removeTags", "bi", "bi-x-lg");
       cross.style.cursor = "pointer";
       cross.addEventListener("click", () => {
         const tagsList = activeItemTags[category];
@@ -84,7 +79,7 @@ export function getFilters() {
     activeItemTags.ingredients.forEach((v) => addTag("ingredients", v));
     activeItemTags.ustensils.forEach((v) => addTag("ustensils", v));
     activeItemTags.appliance.forEach((v) => addTag("appliance", v));
-  }
+  };
 
   const applyFilters = () => {
     let filtered = recipes;
@@ -93,7 +88,7 @@ export function getFilters() {
     if (activeItemTags.ingredients.length > 0) {
       filtered = filtered.filter((recipe) => {
         const ingList = recipe.ingredients.map((i) =>
-          i.ingredient.toLocaleLowerCase()
+          normalize(i.ingredient)
         );
         return activeItemTags.ingredients.every((tag) => ingList.includes(tag));
       });
@@ -102,7 +97,7 @@ export function getFilters() {
     // Ustensils
     if (activeItemTags.ustensils.length > 0) {
       filtered = filtered.filter((recipe) => {
-        const ustList = recipe.ustensils.map((u) => u.toLocaleLowerCase());
+        const ustList = recipe.ustensils.map((u) => normalize(u));
         return activeItemTags.ustensils.every((tag) => ustList.includes(tag));
       });
     }
@@ -111,33 +106,25 @@ export function getFilters() {
     if (activeItemTags.appliance.length > 0) {
       filtered = filtered.filter((recipe) => {
         const appList = Array.isArray(recipe.appliance)
-          ? recipe.appliance.map((a) => a.toLocaleLowerCase())
-          : [recipe.appliance.toLocaleLowerCase()];
+          ? recipe.appliance.map((a) => normalize(a))
+          : [normalize(recipe.appliance)];
         return activeItemTags.appliance.every((tag) => appList.includes(tag));
       });
     }
 
     renderRecipes(filtered);
     displayTags();
-  }
+  };
 
-  
   const createFilter = (newFilters, destination, category) => {
-    // Create the <ul> container for the filter
     const filterContainer = document.createElement("ul");
     filterContainer.classList.add("dropdown-menu");
-
-    // Create the list item containing the search bar
     const filterSearchBar = document.createElement("li");
     filterSearchBar.classList.add("filterSearchBar", "px-3", "py-2");
-
-    // Create the search input field
     const filterSearchBarInput = document.createElement("input");
     filterSearchBarInput.classList.add("filterSearchBarInput", "form-control");
     filterSearchBarInput.type = "text";
     filterSearchBarInput.name = "search bar filter";
-
-    // Create the search icon
     const filterIconeSearch = document.createElement("i");
     filterIconeSearch.classList.add("filterSearchBarIcone", "bi", "bi-search");
 
@@ -145,7 +132,6 @@ export function getFilters() {
     destination.append(filterContainer);
     filterSearchBar.append(filterSearchBarInput, filterIconeSearch);
     filterContainer.append(filterSearchBar);
-    
 
     // Create and append each filter item
     newFilters.forEach((item) => {
@@ -165,7 +151,7 @@ export function getFilters() {
       if (!link) return;
       e.preventDefault();
 
-      const value = link.textContent.toLocaleLowerCase();
+      const value = normalize(link.textContent);
       const tagsArray = activeItemTags[category];
 
       if (!tagsArray.includes(value)) {
@@ -178,7 +164,7 @@ export function getFilters() {
 
       applyFilters();
     });
-  }
+  };
 
   // Render all filters
   createFilter(ingredients, ingredientsFilter, "ingredients");
