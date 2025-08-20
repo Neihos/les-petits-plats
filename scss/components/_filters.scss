@@ -33,15 +33,22 @@
   }
 }
 
-.dropdown-item {
+.dropdown-menu .dropdown-item {
   font-size: 14px;
+  &:hover {
+    background-color: rgba(255, 209, 91, 1);
+  }
 }
 
 .filterSearchBarInput.form-control {
   position: relative;
   border-radius: 1px;
+  font-size: 14px;
+  color: rgba(122, 122, 122, 1);
+  padding-right: 22px;
   &:focus {
-    border-color: transparent;
+    box-shadow: none;
+    border-color: rgba(122, 122, 122, 1);
   }
 }
 .filterSearchBarIcone {
@@ -53,7 +60,7 @@
 }
 
 #tags-container {
-  .tags-container_tags-list{
+  .tags-container_tags-list {
     display: flex;
     flex-wrap: wrap;
     padding: 0;
@@ -67,10 +74,10 @@
       height: 53px;
       border-radius: 10px;
       padding: 17px 18px;
-      background-color: rgba(255,209,91,1);
+      background-color: rgba(255, 209, 91, 1);
       .removeTags {
         font-size: 10px;
       }
-    } 
+    }
   }
 }

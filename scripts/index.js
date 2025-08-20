@@ -1,5 +1,5 @@
 import { recipes } from "../data/recipes.js";
-import { createRecipesCard } from "./components/recipe-card.js";
+import { createRecipesCard } from "./templates/recipe-card.js";
 import { getFilters } from "./components/filters.js";
 
 function displayRecipesCards() {

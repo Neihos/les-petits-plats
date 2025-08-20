@@ -156,16 +156,23 @@ header {
   box-shadow: none;
 }
 
-.dropdown-item {
+.dropdown-menu .dropdown-item {
   font-size: 14px;
+}
+.dropdown-menu .dropdown-item:hover {
+  background-color: rgb(255, 209, 91);
 }
 
 .filterSearchBarInput.form-control {
   position: relative;
   border-radius: 1px;
+  font-size: 14px;
+  color: rgb(122, 122, 122);
+  padding-right: 22px;
 }
 .filterSearchBarInput.form-control:focus {
-  border-color: transparent;
+  box-shadow: none;
+  border-color: rgb(122, 122, 122);
 }
 
 .filterSearchBarIcone {
