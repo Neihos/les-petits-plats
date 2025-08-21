@@ -49,15 +49,30 @@ export function getFilters() {
 
   // Display the tags based on active filters
   const displayTags = () => {
-    const addTag = createTagElement(
+    const addTagGlobal = createTagElement(
       tagsContainer,
       activeItemTags,
       applyFilters
     );
 
-    activeItemTags.ingredients.forEach((v) => addTag("ingredients", v));
-    activeItemTags.ustensils.forEach((v) => addTag("ustensils", v));
-    activeItemTags.appliance.forEach((v) => addTag("appliance", v));
+    // Display tags on home page
+    activeItemTags.ingredients.forEach((v) => addTagGlobal("ingredients", v));
+    activeItemTags.ustensils.forEach((v) => addTagGlobal("ustensils", v));
+    activeItemTags.appliance.forEach((v) => addTagGlobal("appliance", v));
+
+    // Dropdowns containers
+    const ingMenu = ingredientsFilter.querySelector("ul.dropdown-menu");
+    const ustMenu = ustensilsFilter.querySelector("ul.dropdown-menu");
+    const appMenu = applianceFilter.querySelector("ul.dropdown-menu");
+
+    const addTagIngr = createTagElement(ingMenu, activeItemTags, applyFilters);
+    const addTagUst = createTagElement(ustMenu, activeItemTags, applyFilters);
+    const addTagApp = createTagElement(appMenu, activeItemTags, applyFilters);
+
+    // Add tags in dropdowns
+    activeItemTags.ingredients.forEach((v) => addTagIngr("ingredients", v));
+    activeItemTags.ustensils.forEach((v) => addTagUst("ustensils", v));
+    activeItemTags.appliance.forEach((v) => addTagApp("appliance", v));
   };
 
   const applyFilters = () => {
