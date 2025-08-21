@@ -1,4 +1,4 @@
-import { normalize } from "../helpers/text.js";
+import { capitalize, normalize } from "../helpers/text.js";
 
 export const createFilter = (
   activeItemTags,
@@ -32,7 +32,7 @@ export const createFilter = (
     const filterLink = document.createElement("a");
     filterLink.classList.add("dropdown-item");
     filterLink.setAttribute("href", "#");
-    filterLink.textContent = `${item}`;
+    filterLink.textContent = capitalize(item);
 
     filterContainer.append(filter);
     filter.append(filterLink);
