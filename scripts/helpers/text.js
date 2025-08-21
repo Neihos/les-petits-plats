@@ -1,5 +1,10 @@
 // Normalisations & utilitaires texte
-export const normalize = (str) => str.toLocaleLowerCase().trim();
+export const normalize = (str) =>
+  str
+    .toLocaleLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .trim();
 
 export const unique = (array) => [...new Set(array)];
 

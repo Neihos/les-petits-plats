@@ -3,6 +3,7 @@ import { createRecipesCard } from "../templates/recipe-card.js";
 import { unique, normalize } from "../helpers/text.js";
 import { createTagElement } from "../templates/create-tags.js";
 import { createFilter } from "../templates/create-filters.js";
+import { mainSearchBar, searchIn } from "./search.js";
 
 export function getFilters() {
   // Get a unique list of ingredients, ustensils and appliances
@@ -27,6 +28,7 @@ export function getFilters() {
   const tagsContainer = document.querySelector("#tags-container");
   const cardsContainer = document.querySelector(".cards_container");
   const nbRecipes = document.querySelector(".nb-recipes");
+  let currentQuery = "";
 
   // Render of recipes
   const renderRecipes = (list) => {
@@ -104,6 +106,10 @@ export function getFilters() {
       });
     }
 
+    if (currentQuery && currentQuery.length >= 3) {
+      filtered = searchIn(filtered, currentQuery);
+    }
+
     renderRecipes(filtered);
     displayTags();
   };
@@ -130,4 +136,10 @@ export function getFilters() {
     "appliance",
     applyFilters
   );
+
+  
+  mainSearchBar(function (cleanInSearchBar) {
+    currentQuery = cleanInSearchBar;
+    applyFilters();
+  });
 }
