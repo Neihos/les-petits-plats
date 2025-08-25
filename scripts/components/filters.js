@@ -9,16 +9,16 @@ export function getFilters() {
   // Get a unique list of ingredients, ustensils and appliances
   const ingredients = unique(
     recipes.flatMap((recipe) =>
-      recipe.ingredients.map((ing) => normalize(ing.ingredient))
+      recipe.ingredients.map((ing) => ing.ingredient)
     )
   );
 
   const ustensils = unique(
-    recipes.flatMap((recipe) => recipe.ustensils.map((u) => normalize(u)))
+    recipes.flatMap((recipe) => recipe.ustensils)
   );
 
   const appliance = unique(
-    recipes.map((recipe) => normalize(recipe.appliance))
+    recipes.map((recipe) => recipe.appliance)
   );
 
   // Select HTML elements

@@ -165,6 +165,9 @@ header {
 .dropdown-menu .dropdown-item:hover {
   background-color: rgb(255, 209, 91);
 }
+.dropdown-menu .dropdown-item.is-active {
+  display: none;
+}
 
 .filterSearchBarInput.form-control {
   position: relative;
