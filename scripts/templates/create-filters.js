@@ -29,6 +29,10 @@ export const createFilter = (
   // Create and append each filter item
   newFilters.forEach((item) => {
     const filter = document.createElement("li");
+    filter.dataset.filterItem = "";
+    filter.dataset.category = category;
+    filter.dataset.value = normalize(item);
+
     const filterLink = document.createElement("a");
     filterLink.classList.add("dropdown-item");
     filterLink.setAttribute("href", "#");
@@ -44,15 +48,18 @@ export const createFilter = (
     if (!link) return;
     e.preventDefault();
 
-    const value = normalize(link.textContent);
+    const li = link.closest("li[data-filter-item]") || link.parentElement;
+    const value = li?.dataset.value ?? normalize(link.textContent);
     const tagsArray = activeItemTags[category];
 
     if (!tagsArray.includes(value)) {
       tagsArray.push(value);
       link.classList.add("is-active");
+      if (li) li.hidden = true;
     } else {
       tagsArray.splice(tagsArray.indexOf(value), 1);
       link.classList.remove("is-active");
+      if (li) li.hidden = false;
     }
 
     applyFilters();
@@ -62,8 +69,8 @@ export const createFilter = (
     const q = normalize(filterSearchBarInput.value);
     [...filterContainer.querySelectorAll(".dropdown-item")].forEach((a) => {
       const show = !q || normalize(a.textContent).includes(q);
-      a.parentElement.style.display = show ? "" : "none";
+      const li = a.parentElement;
+      if (!li.hidden) li.style.display = show ? "" : "none";
     });
   });
-  
 };
