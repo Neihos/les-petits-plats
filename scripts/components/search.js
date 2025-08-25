@@ -32,8 +32,8 @@ export function searchIn(list, cleanInSearchBar) {
   const out = [];
 
   list.forEach((r) => {
-    // Name, appliances, description
-    const hasText = [r?.name, r?.appliance, r?.description].some((s) =>
+    // Name, description
+    const hasText = [r?.name, r?.description].some((s) =>
       normalize(s || "").includes(term)
     );
 
@@ -44,12 +44,7 @@ export function searchIn(list, cleanInSearchBar) {
         normalize(ing?.ingredient || "").includes(term)
       );
 
-    // ustensils
-    const hasUst =
-      Array.isArray(r?.ustensils) &&
-      r.ustensils.some((u) => normalize(u || "").includes(term));
-
-    if (hasText || hasIng || hasUst) out.push(r);
+    if (hasText || hasIng) out.push(r);
   });
 
   return out;
