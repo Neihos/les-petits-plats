@@ -42,32 +42,15 @@ export function searchIn(list, cleanInSearchBar) {
           break;
         }
         case 1: {
-          const s = normalize(r?.appliance || "");
-          if (s.indexOf(term) !== -1) found = true;
-          break;
-        }
-        case 2: {
           const s = normalize(r?.description || "");
           if (s.indexOf(term) !== -1) found = true;
           break;
         }
-        case 3: {
+        case 2: {
           // ingredients
           const ings = r?.ingredients || [];
           for (let j = 0; j < ings.length; j++) {
             const s = normalize(ings[j]?.ingredient || "");
-            if (s.indexOf(term) !== -1) {
-              found = true;
-              break;
-            }
-          }
-          break;
-        }
-        case 4: {
-          // ustensils
-          const ust = r?.ustensils || [];
-          for (let k = 0; k < ust.length; k++) {
-            const s = normalize(ust[k] || "");
             if (s.indexOf(term) !== -1) {
               found = true;
               break;
