@@ -8,18 +8,12 @@ import { mainSearchBar, searchIn } from "./search.js";
 export function getFilters() {
   // Get a unique list of ingredients, ustensils and appliances
   const ingredients = unique(
-    recipes.flatMap((recipe) =>
-      recipe.ingredients.map((ing) => ing.ingredient)
-    )
+    recipes.flatMap((recipe) => recipe.ingredients.map((ing) => ing.ingredient))
   );
 
-  const ustensils = unique(
-    recipes.flatMap((recipe) => recipe.ustensils)
-  );
+  const ustensils = unique(recipes.flatMap((recipe) => recipe.ustensils));
 
-  const appliance = unique(
-    recipes.map((recipe) => recipe.appliance)
-  );
+  const appliance = unique(recipes.map((recipe) => recipe.appliance));
 
   // Select HTML elements
   const ingredientsFilter = document.querySelector("#btn-ingredients");
@@ -111,6 +105,15 @@ export function getFilters() {
     }
 
     renderRecipes(filtered);
+    const alertBox = document.getElementById("alert");
+    if (alertBox) {
+      if (filtered.length === 0 && currentQuery && currentQuery.length >= 3) {
+        alertBox.textContent = `Aucune recette ne contient « ${currentQuery} ». Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+      } else {
+        alertBox.textContent = "";
+      }
+    }
+
     displayTags();
   };
 
