@@ -1,5 +1,6 @@
 import { normalize } from "../helpers/text.js";
 
+// Main search bar component
 export function mainSearchBar(onSearch) {
   const form = document.querySelector(
     ".header-index_search-container_navbar form"
@@ -23,7 +24,7 @@ export function mainSearchBar(onSearch) {
   });
 }
 
-
+// Search function
 export function searchIn(list, cleanInSearchBar) {
   if (!cleanInSearchBar || cleanInSearchBar.length < 3) return list;
 
