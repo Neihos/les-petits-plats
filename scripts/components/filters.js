@@ -105,6 +105,15 @@ export function getFilters() {
     }
 
     renderRecipes(filtered);
+    const alertBox = document.getElementById("alert");
+    if (alertBox) {
+      if (filtered.length === 0 && currentQuery && currentQuery.length >= 3) {
+        alertBox.textContent = `Aucune recette ne contient « ${currentQuery} ». Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+      } else {
+        alertBox.textContent = "";
+      }
+    }
+
     displayTags();
   };
 
