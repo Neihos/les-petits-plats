@@ -1,5 +1,5 @@
 import { recipes } from "../../data/recipes.js";
-import { unique, normalize } from "../helpers/text.js";
+import { unique } from "../helpers/text.js";
 import { displayTags } from "../services/tags-ui.js";
 import { createFilter } from "../templates/create-filters.js";
 import { mainSearchBar, searchIn } from "./search.js";
@@ -7,7 +7,6 @@ import { updateAvailableOptions } from "../services/filter-update.js";
 import { renderRecipes } from "../templates/renderer.js";
 import { updateAlertBox } from "../services/alert.js";
 import { filterByTags } from "../services/filtering.js";
-
 
 export function getFilters() {
   // Get a unique list of ingredients, ustensils and appliances
@@ -24,8 +23,6 @@ export function getFilters() {
   const ustensilsFilter = document.querySelector("#btn-ustensils");
   const applianceFilter = document.querySelector("#btn-appliances");
   const tagsContainer = document.querySelector("#tags-container");
-  const cardsContainer = document.querySelector(".cards_container");
-  const nbRecipes = document.querySelector(".nb-recipes");
   let currentQuery = "";
 
   // Active tags
@@ -87,8 +84,8 @@ export function getFilters() {
     applyFilters
   );
 
-  mainSearchBar(function (cleanInSearchBar) {
-    currentQuery = cleanInSearchBar;
+  mainSearchBar(function (inSearchBarNormalized) {
+    currentQuery = inSearchBarNormalized;
     applyFilters();
   });
 }

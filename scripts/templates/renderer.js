@@ -19,7 +19,7 @@ export function renderRecipes(
   }
   // Updates the recipe counter
   if (counter) {
-    counter.textContent = `${list.length} ${
+    counter.textContent = `${list.length < 10 ? "0" : ""}${list.length} ${
       list.length > 1 ? "recettes" : "recette"
     }`;
   }

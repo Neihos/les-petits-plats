@@ -1,6 +1,11 @@
 import { normalize } from "../helpers/text.js";
 
-// update the available options in the dropdown menus
+/**
+ * Update the available options in the dropdown menus.
+ * @param {Array} list - The list of recipes.
+ * @param {Object} refs - The references to the filter elements.
+ * @param {Object} activeItemTags - The currently active filter tags.
+ */
 export function updateAvailableOptions(list, refs, activeItemTags) {
   const ing = new Set(),
     ust = new Set(),
@@ -27,6 +32,13 @@ export function updateAvailableOptions(list, refs, activeItemTags) {
   toggle(refs.applianceFilter, app, "appliance", activeItemTags);
 }
 
+/**
+ * Update the visibility of filter items based on available options.
+ * @param {HTMLElement} wrapper - The filter wrapper element.
+ * @param {Set} set - The set of available options.
+ * @param {string} category - The filter category.
+ * @param {Object} activeItemTags - The currently active filter tags.
+ */
 function toggle(wrapper, set, category, activeItemTags) {
   if (!wrapper) return;
   const menu = wrapper.querySelector("ul.dropdown-menu");
