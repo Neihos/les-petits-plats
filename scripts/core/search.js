@@ -1,5 +1,9 @@
 import { normalize } from "../helpers/text.js";
 
+/**
+ * Main search bar component
+ * @param {Function} onSearch - Callback function to handle search input
+ **/
 export function mainSearchBar(onSearch) {
   const form = document.querySelector(
     ".header-index_search-container_navbar form"
@@ -9,8 +13,8 @@ export function mainSearchBar(onSearch) {
 
   function update() {
     const inSearchBar = input.value || "";
-    const cleanInSearchBar = normalize(inSearchBar);
-    onSearch(cleanInSearchBar.length >= 3 ? cleanInSearchBar : "");
+    const inSearchBarNormalized = normalize(inSearchBar);
+    onSearch(inSearchBarNormalized.length >= 3 ? inSearchBarNormalized : "");
   }
 
   form.addEventListener("submit", function (e) {
@@ -23,18 +27,24 @@ export function mainSearchBar(onSearch) {
   });
 }
 
-export function searchIn(list, cleanInSearchBar) {
-  if (!cleanInSearchBar || cleanInSearchBar.length < 3) return list;
+/**
+ * 
+ * @param {*} list 
+ * @param {*} inSearchBarNormalized 
+ * @returns 
+ */
+export function searchIn(list, inSearchBarNormalized) {
+  if (!inSearchBarNormalized || inSearchBarNormalized.length < 3) return list;
 
-  const term = normalize(cleanInSearchBar);
+  const term = normalize(inSearchBarNormalized);
   const out = [];
 
   for (let i = 0; i < list.length; i++) {
     const r = list[i];
     let found = false;
 
-    // 0: name, 1: appliance, 2: description, 3: ingredients, 4: ustensils
-    for (let f = 0; f < 5 && !found; f++) {
+    // 0: name, 1: description, 2: ingredients
+    for (let f = 0; f < 3 && !found; f++) {
       switch (f) {
         case 0: {
           const s = normalize(r?.name || "");

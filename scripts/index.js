@@ -1,6 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { createRecipesCard } from "./templates/recipe-card.js";
-import { getFilters } from "./components/filters.js";
+import { getFilters } from "./core/filters.js";
 
 function displayRecipesCards() {
   const cardContainer = document.querySelector(".cards_container");

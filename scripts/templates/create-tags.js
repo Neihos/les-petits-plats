@@ -1,6 +1,12 @@
 import { capitalize, normalize } from "../helpers/text.js";
 
-// Display the tags based on active filters
+/**
+ * Create a tag element for the active filters.
+ * @param {HTMLElement} containerIn - The container to insert the tag into.
+ * @param {Object} activeItemTags - The currently active filter tags.
+ * @param {Function} applyFilters - The function to call when filters are applied.
+ * @returns {Function} - A function to add a tag to the display.
+ */
 export const createTagElement = (containerIn, activeItemTags, applyFilters) => {
   if (!containerIn) return () => {};
 
@@ -45,18 +51,19 @@ export const createTagElement = (containerIn, activeItemTags, applyFilters) => {
     cross.style.cursor = "pointer";
 
     cross.addEventListener("click", () => {
-      const arrayOfTags = activeItemTags[category];
-      const i = arrayOfTags.indexOf(value);
-      if (i !== -1) arrayOfTags.splice(i, 1);
+      const norm = normalize(value);
+      const arr = activeItemTags[category];
+      const idx = arr.indexOf(norm);
+      if (idx !== -1) arr.splice(idx, 1);
 
-      const itemValue = normalize(value);
-      const itemLi = document.querySelector(
-        `li[data-filter-item][data-category="${category}"][data-value="${itemValue}"]`
+      // Find the menu option via data-value
+      const li = document.querySelector(
+        `li[data-filter-item][data-category="${category}"][data-value="${norm}"]`
       );
-      if (itemLi) {
-        itemLi.hidden = false;
-        itemLi.querySelector(".dropdown-item")?.classList.remove("is-active");
-        itemLi.style.display = "";
+      if (li) {
+        li.hidden = false;
+        li.style.display = "";
+        li.querySelector(".dropdown-item")?.classList.remove("is-active");
       }
 
       applyFilters();

@@ -1,5 +1,13 @@
 import { capitalize, normalize } from "../helpers/text.js";
 
+/**
+ * Create a filter dropdown menu.
+ * @param {Object} activeItemTags - The currently active filter tags.
+ * @param {Array} newFilters - The new filter items to display.
+ * @param {HTMLElement} destination - The element to append the filter menu to.
+ * @param {string} category - The filter category (e.g., ingredients, utensils).
+ * @param {Function} applyFilters - The function to call when filters are applied.
+ */
 export const createFilter = (
   activeItemTags,
   newFilters,
@@ -65,12 +73,22 @@ export const createFilter = (
     applyFilters();
   });
 
-  filterSearchBarInput.addEventListener("input", () => {
+  /**
+   * Update the visibility of filter items based on the search query.
+   */
+  function updateMenuFilter() {
     const q = normalize(filterSearchBarInput.value);
     [...filterContainer.querySelectorAll(".dropdown-item")].forEach((a) => {
-      const show = !q || normalize(a.textContent).includes(q);
       const li = a.parentElement;
-      if (!li.hidden) li.style.display = show ? "" : "none";
+      const matchText = !q || normalize(a.textContent).includes(q);
+      const available = li.dataset.available !== "0";
+      if (!li.hidden) li.style.display = available && matchText ? "" : "none";
     });
-  });
+  }
+  filterSearchBarInput.addEventListener("input", updateMenuFilter);
+
+  const toggleBtn = destination.querySelector('[data-bs-toggle="dropdown"]');
+  toggleBtn?.addEventListener("shown.bs.dropdown", updateMenuFilter);
+
+  updateMenuFilter();
 };

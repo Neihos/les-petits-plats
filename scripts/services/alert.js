@@ -1,0 +1,14 @@
+/**
+ * Update the alert box with the current search query and result count.
+ * @param {string} currentQuery - The current search query.
+ * @param {number} count - The number of recipes found.
+ * @returns {void}
+ */
+export function updateAlertBox(currentQuery, count) {
+  const alert = document.getElementById("alert");
+  if (!alert) return;
+  alert.textContent =
+    count === 0 && currentQuery && currentQuery.length >= 3
+      ? `Aucune recette ne contient « ${currentQuery} ». Vous pouvez chercher « tarte aux pommes », « poisson », etc.`
+      : "";
+}
