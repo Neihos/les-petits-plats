@@ -31,7 +31,7 @@ export const createFilter = (
     const filter = document.createElement("li");
     filter.dataset.filterItem = "";
     filter.dataset.category = category;
-    filter.dataset.value = normalize(item); 
+    filter.dataset.value = normalize(item);
 
     const filterLink = document.createElement("a");
     filterLink.classList.add("dropdown-item");
@@ -65,13 +65,19 @@ export const createFilter = (
     applyFilters();
   });
 
-  filterSearchBarInput.addEventListener("input", () => {
+  function updateMenuFilter() {
     const q = normalize(filterSearchBarInput.value);
     [...filterContainer.querySelectorAll(".dropdown-item")].forEach((a) => {
-      const show = !q || normalize(a.textContent).includes(q);
       const li = a.parentElement;
-      if (!li.hidden) li.style.display = show ? "" : "none";
+      const matchText = !q || normalize(a.textContent).includes(q);
+      const available = li.dataset.available !== "0";
+      if (!li.hidden) li.style.display = available && matchText ? "" : "none";
     });
-  });
-  
+  }
+  filterSearchBarInput.addEventListener("input", updateMenuFilter);
+
+  const toggleBtn = destination.querySelector('[data-bs-toggle="dropdown"]');
+  toggleBtn?.addEventListener("shown.bs.dropdown", updateMenuFilter);
+
+  updateMenuFilter();
 };

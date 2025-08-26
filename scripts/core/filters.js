@@ -4,6 +4,8 @@ import { unique, normalize } from "../helpers/text.js";
 import { createTagElement } from "../templates/create-tags.js";
 import { createFilter } from "../templates/create-filters.js";
 import { mainSearchBar, searchIn } from "./search.js";
+import { updateAvailableOptions } from "../services/filter-update.js";
+
 
 export function getFilters() {
   // Get a unique list of ingredients, ustensils and appliances
@@ -43,6 +45,14 @@ export function getFilters() {
     appliance: [],
   };
 
+  // Display of tags using data-value
+  function getLabel(category, normVal) {
+    const li = document.querySelector(
+      `li[data-filter-item][data-category="${category}"][data-value="${normVal}"]`
+    );
+    return li?.querySelector(".dropdown-item")?.textContent || normVal;
+  }
+
   // Display the tags based on active filters
   const displayTags = () => {
     const addTagGlobal = createTagElement(
@@ -51,10 +61,16 @@ export function getFilters() {
       applyFilters
     );
 
-    // Display tags on home page
-    activeItemTags.ingredients.forEach((v) => addTagGlobal("ingredients", v));
-    activeItemTags.ustensils.forEach((v) => addTagGlobal("ustensils", v));
-    activeItemTags.appliance.forEach((v) => addTagGlobal("appliance", v));
+    // Tags globaux (PASSER category + label)
+    activeItemTags.ingredients.forEach((v) =>
+      addTagGlobal("ingredients", getLabel("ingredients", v))
+    );
+    activeItemTags.ustensils.forEach((v) =>
+      addTagGlobal("ustensils", getLabel("ustensils", v))
+    );
+    activeItemTags.appliance.forEach((v) =>
+      addTagGlobal("appliance", getLabel("appliance", v))
+    );
 
     // Dropdowns containers
     const ingMenu = ingredientsFilter.querySelector("ul.dropdown-menu");
@@ -65,11 +81,18 @@ export function getFilters() {
     const addTagUst = createTagElement(ustMenu, activeItemTags, applyFilters);
     const addTagApp = createTagElement(appMenu, activeItemTags, applyFilters);
 
-    // Add tags in dropdowns
-    activeItemTags.ingredients.forEach((v) => addTagIngr("ingredients", v));
-    activeItemTags.ustensils.forEach((v) => addTagUst("ustensils", v));
-    activeItemTags.appliance.forEach((v) => addTagApp("appliance", v));
+    // Tags dans chaque dropdown (PASSER category + label)
+    activeItemTags.ingredients.forEach((v) =>
+      addTagIngr("ingredients", getLabel("ingredients", v))
+    );
+    activeItemTags.ustensils.forEach((v) =>
+      addTagUst("ustensils", getLabel("ustensils", v))
+    );
+    activeItemTags.appliance.forEach((v) =>
+      addTagApp("appliance", getLabel("appliance", v))
+    );
   };
+
 
   const applyFilters = () => {
     let filtered = recipes;
@@ -104,7 +127,14 @@ export function getFilters() {
       filtered = searchIn(filtered, currentQuery);
     }
 
+    updateAvailableOptions(
+      filtered,
+      { ingredientsFilter, ustensilsFilter, applianceFilter },
+      activeItemTags
+    );
+
     renderRecipes(filtered);
+
     const alertBox = document.getElementById("alert");
     if (alertBox) {
       if (filtered.length === 0 && currentQuery && currentQuery.length >= 3) {
