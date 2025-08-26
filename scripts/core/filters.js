@@ -6,6 +6,8 @@ import { mainSearchBar, searchIn } from "./search.js";
 import { updateAvailableOptions } from "../services/filter-update.js";
 import { renderRecipes } from "../templates/renderer.js";
 import { updateAlertBox } from "../services/alert.js";
+import { filterByTags } from "../services/filtering.js";
+
 
 export function getFilters() {
   // Get a unique list of ingredients, ustensils and appliances
@@ -34,38 +36,14 @@ export function getFilters() {
   };
 
   const applyFilters = () => {
-    let filtered = recipes;
-
-    // Ingredients
-    if (activeItemTags.ingredients.length > 0) {
-      filtered = filtered.filter((recipe) => {
-        const ingList = recipe.ingredients.map((i) => normalize(i.ingredient));
-        return activeItemTags.ingredients.every((tag) => ingList.includes(tag));
-      });
-    }
-
-    // Ustensils
-    if (activeItemTags.ustensils.length > 0) {
-      filtered = filtered.filter((recipe) => {
-        const ustList = recipe.ustensils.map((u) => normalize(u));
-        return activeItemTags.ustensils.every((tag) => ustList.includes(tag));
-      });
-    }
-
-    // Appliances : string or array
-    if (activeItemTags.appliance.length > 0) {
-      filtered = filtered.filter((recipe) => {
-        const appList = Array.isArray(recipe.appliance)
-          ? recipe.appliance.map((a) => normalize(a))
-          : [normalize(recipe.appliance)];
-        return activeItemTags.appliance.every((tag) => appList.includes(tag));
-      });
-    }
+    // Filter the recipes based on active tags and search query
+    let filtered = filterByTags(recipes, activeItemTags);
 
     if (currentQuery && currentQuery.length >= 3) {
       filtered = searchIn(filtered, currentQuery);
     }
 
+    // Update the available options in the filters
     updateAvailableOptions(
       filtered,
       { ingredientsFilter, ustensilsFilter, applianceFilter },
