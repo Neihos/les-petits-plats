@@ -1,11 +1,11 @@
 import { recipes } from "../../data/recipes.js";
-import { createRecipesCard } from "../templates/recipe-card.js";
 import { unique, normalize } from "../helpers/text.js";
 import { createTagElement } from "../templates/create-tags.js";
 import { createFilter } from "../templates/create-filters.js";
 import { mainSearchBar, searchIn } from "./search.js";
 import { updateAvailableOptions } from "../services/filter-update.js";
-
+import { renderRecipes } from "../templates/renderer.js";
+import { updateAlertBox } from "../services/alert.js";
 
 export function getFilters() {
   // Get a unique list of ingredients, ustensils and appliances
@@ -25,18 +25,6 @@ export function getFilters() {
   const cardsContainer = document.querySelector(".cards_container");
   const nbRecipes = document.querySelector(".nb-recipes");
   let currentQuery = "";
-
-  // Render of recipes
-  const renderRecipes = (list) => {
-    cardsContainer.innerHTML = "";
-    list.forEach((recipe) => {
-      cardsContainer.append(createRecipesCard(recipe));
-    });
-    // Counter update
-    nbRecipes.textContent = `${list.length} ${
-      list.length > 1 ? "recettes" : "recette"
-    }`;
-  };
 
   // Active tags
   const activeItemTags = {
@@ -135,14 +123,7 @@ export function getFilters() {
 
     renderRecipes(filtered);
 
-    const alertBox = document.getElementById("alert");
-    if (alertBox) {
-      if (filtered.length === 0 && currentQuery && currentQuery.length >= 3) {
-        alertBox.textContent = `Aucune recette ne contient « ${currentQuery} ». Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
-      } else {
-        alertBox.textContent = "";
-      }
-    }
+    updateAlertBox(currentQuery, filtered.length);
 
     displayTags();
   };
